@@ -1,5 +1,6 @@
 {
   "name": "text-app",
+  "homepage": "https://justynaprus.github.io/zadanie3/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
