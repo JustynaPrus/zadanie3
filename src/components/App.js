@@ -3,13 +3,18 @@ import "./App.css";
 import Button from "./Button";
 import Text from "./Text";
 
-const API =
-  "https://gist.githubusercontent.com/natebass/b0a548425a73bdf8ea5c618149fe1fce/raw/?index=1";
+const API = `https://gist.githubusercontent.com/natebass/b0a548425a73bdf8ea5c618149fe1fce/raw/f4231cd5961f026264bb6bb3a6c41671b044f1f4/quotes.json`;
 
 class App extends Component {
   state = {
     texts: [],
   };
+
+  componentDidMount() {
+    fetch(API)
+      .then((res) => res.json())
+      .then((data) => this.setState({ texts: data }));
+  }
 
   handleDataFetch = () => {
     fetch(API)
@@ -29,9 +34,10 @@ class App extends Component {
   };
 
   render() {
-    console.log(API);
     const texts = this.state.texts;
-    console.log(texts);
+
+    const randomText = texts[Math.floor(Math.random() * texts.length)];
+    console.log(randomText);
     return (
       <div>
         <Button click={this.handleDataFetch} />
