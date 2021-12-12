@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "./App.css";
 import Button from "./Button";
+import PreviousButton from "./PreviousButton";
 import Quote from "./Text";
 
 const API = `https://gist.githubusercontent.com/natebass/b0a548425a73bdf8ea5c618149fe1fce/raw/f4231cd5961f026264bb6bb3a6c41671b044f1f4/quotes.json`;
@@ -10,6 +11,7 @@ class App extends Component {
     texts: [],
     randomQuote: [],
     quotesList: [],
+    isActive: false,
   };
 
   componentDidMount() {
@@ -27,6 +29,12 @@ class App extends Component {
     this.setState({ randomQuote: texts[randomIndex] });
   };
 
+  previousQuote = () => {
+    this.setState({
+      isActive: true,
+    });
+  };
+
   render() {
     const quotes = this.state.randomQuote;
     const quotesList = this.state.quotesList;
@@ -37,10 +45,14 @@ class App extends Component {
       <div>
         <Button click={this.randomize} />
         {quotes ? <Quote quotes={quotes} /> : quotes}
-        <div>
-          <p>{quotesList.quote}</p>
-          <p>{quotesList.author}</p>
-        </div>
+        <PreviousButton click={this.previousQuote} />
+        {this.state.isActive ? (
+          <div>
+            <p>Poprzedni cytat: </p>
+            <p>{quotesList.quote}</p>
+            <p>{quotesList.author}</p>
+          </div>
+        ) : null}
       </div>
     );
   }
