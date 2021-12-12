@@ -9,6 +9,7 @@ class App extends Component {
   state = {
     texts: [],
     randomQuote: [],
+    quotesList: [],
   };
 
   componentDidMount() {
@@ -19,20 +20,27 @@ class App extends Component {
 
   randomize = () => {
     const texts = this.state.texts;
+    const quotesList = this.setState((prevState) => ({
+      quotesList: prevState.randomQuote,
+    }));
     const randomIndex = Math.floor(Math.random() * texts.length);
     this.setState({ randomQuote: texts[randomIndex] });
   };
 
-  previousQuote = () => {};
-
   render() {
     const quotes = this.state.randomQuote;
+    const quotesList = this.state.quotesList;
 
     console.log(quotes);
+    console.log(quotesList);
     return (
       <div>
         <Button click={this.randomize} />
         {quotes ? <Quote quotes={quotes} /> : quotes}
+        <div>
+          <p>{quotesList.quote}</p>
+          <p>{quotesList.author}</p>
+        </div>
       </div>
     );
   }
